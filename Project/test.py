@@ -34,7 +34,7 @@ for i in range(len(df_dict)):
         # 여성 / 남성 -> tiem_gender_2
         driver.find_element_by_id('item_gender_2').click()
 
-        # 10대
+        # 나이 선택
         driver.find_element_by_id('item_age_11').click()
 
     # 검색
