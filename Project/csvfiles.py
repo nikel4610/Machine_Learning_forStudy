@@ -17,3 +17,6 @@ for i in range(len(list1)):
 
 list2 = list(set(list2))
 print(list2)
+
+df = pd.DataFrame(list2)
+df.to_csv('D:/vsc_project/machinelearning_study/Project/Ingredients.csv', index=False, encoding='utf-8-sig')
