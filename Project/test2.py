@@ -2,14 +2,15 @@ from selenium import webdriver as wd
 import time
 import pandas as pd
 
+# TODO 자기전에 셀레니움 돌리고 자기
 driver = wd.Edge('D:/vsc_project/machinelearning_study/edgedriver_win64/msedgedriver.exe')
 driver.get('https://keywordsound.com/service/keyword-analysis')
 
-df = pd.read_csv('D:/vsc_project/machinelearning_study/Project/RCPTitle3.csv')
-# print(df.head())
+df = pd.read_csv('D:/vsc_project/machinelearning_study/Project/searchData/Data/RCP_RE_NM.csv', encoding='cp949')
+print(df.head())
 
 df_dict = df.to_dict()
-df_dict = list(df_dict['RCP_NM'].values())
+df_dict = list(df_dict['CKG_NM'].values())
 
 for i in range(len(df_dict)):
     driver.find_element_by_xpath('//*[@id="kt_content_container"]/div/div/div[1]/div[2]/div/div/div/div/input').clear()

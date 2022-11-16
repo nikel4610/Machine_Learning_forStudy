@@ -45,6 +45,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Project\searchData\Data\RCP_RE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Project\searchData\Data\RCP_RE_NM.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data-master\house_test.csv">
           <value>
             <Attribute>
