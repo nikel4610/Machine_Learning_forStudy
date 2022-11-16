@@ -1,13 +1,22 @@
 from selenium import webdriver as wd
 import time
 import pandas as pd
+from msedge.selenium_tools import Edge, EdgeOptions
 
 # TODO 자기전에 셀레니움 돌리고 자기
-driver = wd.Edge('D:/vsc_project/machinelearning_study/edgedriver_win64/msedgedriver.exe')
+options = EdgeOptions()
+options.use_chromium = True
+options.add_experimental_option("prefs", {
+    "download.default_directory": r"D:\vsc_project\machinelearning_study\Project\searchData\Data\Keyword_Count",
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
+})
+driver = Edge('D:/vsc_project/machinelearning_study/edgedriver_win64/msedgedriver.exe', options=options)
 driver.get('https://keywordsound.com/service/keyword-analysis')
 
 df = pd.read_csv('D:/vsc_project/machinelearning_study/Project/searchData/Data/RCP_RE_NM.csv', encoding='cp949')
-print(df.head())
+# print(df.head())
 
 df_dict = df.to_dict()
 df_dict = list(df_dict['CKG_NM'].values())
