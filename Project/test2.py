@@ -3,7 +3,6 @@ import time
 import pandas as pd
 from msedge.selenium_tools import Edge, EdgeOptions
 
-# TODO 자기전에 셀레니움 돌리고 자기
 options = EdgeOptions()
 options.use_chromium = True
 options.add_experimental_option("prefs", {
