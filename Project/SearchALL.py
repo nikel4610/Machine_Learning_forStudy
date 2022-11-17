@@ -1,6 +1,6 @@
 from SearchKeywords import fm_search1, fm_search2, fm_search3, fm_search4, fm_search5, fm_search6
 from multiprocessing import Process
-
+# TODO 실행 시키고 자기
 if __name__ == "__main__":
     th1 = Process(target=fm_search1)
     th2 = Process(target=fm_search2)

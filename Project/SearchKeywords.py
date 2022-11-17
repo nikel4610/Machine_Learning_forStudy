@@ -8,7 +8,7 @@ df = pd.read_csv('D:/vsc_project/machinelearning_study/Project/searchData/Data/R
 # print(df)
 df_dict = df.to_dict()
 df_dict = list(df_dict['CKG_NM'].values())
-# TODO 실행 시키고 자기
+
 def fm_search1():
     options = EdgeOptions()
     options.use_chromium = True
