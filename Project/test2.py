@@ -21,7 +21,7 @@ df = pd.read_csv('D:/vsc_project/machinelearning_study/Project/searchData/Data/R
 df_dict = df.to_dict()
 df_dict = list(df_dict['CKG_NM'].values())
 
-for i in range(len(df_dict)):
+for i in range(1823, len(df_dict)): # 1788, 1789
     driver.find_element_by_xpath('//*[@id="kt_content_container"]/div/div/div[1]/div[2]/div/div/div/div/input').clear()
     driver.find_element_by_xpath('//*[@id="kt_content_container"]/div/div/div[1]/div[2]/div/div/div/div/input').send_keys(df_dict[i])
 
