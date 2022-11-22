@@ -4,7 +4,7 @@ import openpyxl as xls
 import glob
 
 file_format = ".xlsx"
-file_path = 'D:/vsc_project/machinelearning_study/Project/searchData/Data/Total_Male'
+file_path = 'D:/vsc_project/machinelearning_study/Project/searchData/Data/Total_Female'
 file_name_os = os.listdir(file_path)
 # # print(file_name_os)
 
@@ -19,6 +19,6 @@ for i in range(0, len(file_list), 2):
     df1 = df1.loc[:, (df1 != 0).any(axis=0)]
     df2 = df2.loc[:, (df2 != 0).any(axis=0)]
     df = pd.concat([df1, df2], axis = 1)
-    df.to_excel(f"{file_path}/Total_M" + str(i) + ".xlsx")
+    df.to_excel(f"{file_path}/Total_FM" + str(i) + ".xlsx")
 
 
