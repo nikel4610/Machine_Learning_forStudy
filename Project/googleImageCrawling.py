@@ -27,7 +27,6 @@ for i in range(len(rcp)):
     rcp[i] = rcp[i].strip()
     rcp[i] = rcp[i].split(' ')[0]
 
-# () 안의 단어 제거
 for i in range(len(rcp)):
     if '(' in rcp[i]:
         rcp[i] = rcp[i].split('(')[0]
