@@ -3,13 +3,6 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\Project\Ingredients.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\Project\searchData\Data\RCP_RE.csv">
           <value>
             <Attribute>
@@ -39,6 +32,27 @@
           </value>
         </entry>
         <entry key="\data-master\sonar3.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\bike-sharing-demand\sampleSubmission.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\bike-sharing-demand\test.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\bike-sharing-demand\train.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
