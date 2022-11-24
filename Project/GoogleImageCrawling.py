@@ -1,6 +1,4 @@
 import pandas as pd
-from multiprocessing import Pool
-from selenium import webdriver as wd
 from msedge.selenium_tools import Edge, EdgeOptions
 import time
 import os

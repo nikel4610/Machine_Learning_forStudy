@@ -30,3 +30,5 @@ AUC = 1에 가까울수록 좋은 모델(왼쪽 구석으로 갈수록 좋은 �
         Total Best Score -> Rendom Forest / accur 82%, precision 65%, recall 64%, F1 65%
 ```
 >### [Adults data set 10/07](https://github.com/nikel4610/machinelearning_study/blob/main/machine_learning/adult_%EB%B0%95%ED%98%84%EC%9A%B0.ipynb)
+> 
+### [진행중인 프로젝트](https://github.com/nikel4610/Machine_Learning_forStudy/tree/main/Project)
