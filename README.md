@@ -1,6 +1,6 @@
 # Machine Learning  
 basic of machine learning    
-# [1인 가구를 위한 레시피 추천 프로젝트](https://github.com/nikel4610/Machine_Learning_forStudy/tree/main/Project)
+
 October Start  
 ```
 10-04 : irisdataset with sklearn & used k-fold, GridSerchCV  
@@ -32,3 +32,4 @@ AUC = 1에 가까울수록 좋은 모델(왼쪽 구석으로 갈수록 좋은 �
 ```
 >### [Adults data set 10/07](https://github.com/nikel4610/machinelearning_study/blob/main/machine_learning/adult_%EB%B0%95%ED%98%84%EC%9A%B0.ipynb)
 > 
+### [1인 가구를 위한 레시피 추천 프로젝트](https://github.com/nikel4610/Machine_Learning_forStudy/tree/main/Project)
