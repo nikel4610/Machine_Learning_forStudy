@@ -10,3 +10,4 @@ import pandas as pd
 df = pd.DataFrame()
 df['file'] = file_list
 df.to_csv('D:/vsc_project/machinelearning_study/Project/searchData/Data/ingredients1.csv', index=False, encoding='cp949')
+
