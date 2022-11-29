@@ -56,5 +56,5 @@ for i in range(len(img_list)):
 
         g = data_gen.flow(x, batch_size = 1, save_to_dir = save_dir, save_prefix = 'gen', save_format = 'jpg')
 
-        for k in range(10):
+        for k in range(30):
             g.next()
