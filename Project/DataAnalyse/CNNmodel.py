@@ -95,6 +95,15 @@ plt.ylabel('accuracy')
 plt.legend(['train','val'])
 plt.show()
 
+# ...
+# Epoch 146/300
+# 100/100 [==============================] - 6s 63ms/step - loss: 0.5831 - acc: 0.8233 - val_loss: 0.9350 - val_acc: 0.7207
+# Epoch 147/300
+# 100/100 [==============================] - 6s 62ms/step - loss: 0.5959 - acc: 0.8100 - val_loss: 0.9028 - val_acc: 0.7307
+# Epoch 148/300
+# 100/100 [==============================] - 6s 62ms/step - loss: 0.6300 - acc: 0.8053 - val_loss: 0.8664 - val_acc: 0.7260
+
+
 # 모델 평가
 print("-- Evaluate --")
 scores = model.evaluate(test_generator)
