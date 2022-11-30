@@ -31,12 +31,11 @@ df = pd.DataFrame()
 #     df = df.loc[:, (df != 0).any(axis=0)]
 #     df.to_excel(file_path_M + '/' + 'keywordCount' + str(i) + '.xlsx')
 
-for i in range(len(file_name_os_FM)):
-    df = pd.read_excel(file_list_FM[i]).iloc[:, 2:]
+for i in range(len(file_name_os_M)):
+    df = pd.read_excel(file_list_M[i]).iloc[:, 2:]
     for j in range(len(df.columns)):
         if df.columns[j] in keywords.columns:
-            df.iloc[:, j] = (df.iloc[:, j] * keywords[df.columns[j]] / 100).astype(int)
+            df.iloc[:, j] = round((df.iloc[:, j] * keywords[df.columns[j]])).astype(int)
         else:
             df.iloc[:, j] = 0
-    df = df.loc[:, (df != 0).any(axis=0)]
-    df.to_excel(file_path_FM + '/' + 'keywordCount' + str(i) + '.xlsx')
+    df.to_excel(file_path_M + '/' + 'keywordCount' + str(i) + '.xlsx')

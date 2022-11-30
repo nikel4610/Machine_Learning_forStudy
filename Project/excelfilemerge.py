@@ -4,7 +4,7 @@ import openpyxl as xls
 import glob
 
 file_format = ".xlsx"
-file_path = 'D:/vsc_project/machinelearning_study/Project/searchData/Data/Female10_50/60'
+file_path = 'D:/vsc_project/machinelearning_study/Project/searchData/Data/Male/60'
 file_name_os = os.listdir(file_path)
 # # print(file_name_os)
 
