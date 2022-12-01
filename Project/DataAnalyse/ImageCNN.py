@@ -22,13 +22,20 @@ for i in range(len(file_name_os)):
 
 # print(img_list)
 
-# # img_list의 모든 이미지 크기를 통일
-# for i in range(len(img_list)):
-#     for j in range(len(img_list[i])):
-#         image = img.open(img_list[i][j])
-#         image = image.convert('RGB')
-#         image = image.resize((512, 512))
-#         image.save(img_list[i][j])
+# # 이미지의 절대 경로를 txt 파일로 저장
+# with open('D:/vsc_project/machinelearning_study/Project/searchData/Ingredient_Finish_getSplit/test.txt', 'w') as f:
+#     for i in img_list:
+#         for j in i:
+#             f.write(j)
+
+
+# img_list의 모든 이미지 크기를 통일
+for i in range(len(img_list)):
+    for j in range(len(img_list[i])):
+        image = img.open(img_list[i][j])
+        image = image.convert('RGB')
+        image = image.resize((512, 512))
+        image.save(img_list[i][j])
 
 # 이미지 생성 인자
 data_gen = ImageDataGenerator(
@@ -54,7 +61,7 @@ for i in range(len(img_list)):
         x = tf.keras.utils.img_to_array(image)
         x = x.reshape((1, ) + x.shape)
 
-        g = data_gen.flow(x, batch_size = 1, save_to_dir = save_dir, save_prefix = 'gen', save_format = 'jpg')
+        g = data_gen.flow(x, batch_size = 1, save_to_dir = save_dir, save_prefix = file_name_os[i], save_format = 'jpg')
 
         for k in range(30):
             g.next()
