@@ -104,9 +104,57 @@ df2.to_csv('result_rf.csv', index=False)
 df1 = pd.read_csv(os.path.join(path, 'result_rf.csv'), encoding='cp949')
 df1 = df1.head(100)
 
-# 선 그래프 그리기
-plt.figure(figsize=(16, 8))
-plt.plot(df1['Actual'], label='Actual')
-plt.plot(df1['Predicted'], label='Predicted')
-plt.legend(loc='best')
-plt.show()
+from lightgbm import LGBMRegressor
+
+lgbm_t = LGBMRegressor(random_state=1, learning_rate=0.01, n_estimators=2000, colsample_bytree=0.9, subsample=0.7,
+                       max_depth=5)
+lgbm_t.fit(x_train, y_train)
+lgbm_t_pred = lgbm_t.predict(x_test)
+
+print('LGBMRegressor')
+print('MAE:', mean_absolute_error(y_test, lgbm_t_pred))  # (평균 절대 오차) 예측값과 실제값의 차이의 절대값에 대한 평균
+print('MSE:', mean_squared_error(y_test, lgbm_t_pred))  # (평균 제곱 오차) 예측값과 실제값의 차이의 제곱에 대한 평균
+print('RMSE:', np.sqrt(mean_squared_error(y_test, lgbm_t_pred)))  # (평균 제곱근 오차) 예측값과 실제값의 차이의 제곱에 대한 평균의 제곱근
+print('R2:', r2_score(y_test, lgbm_t_pred))  # (결정 계수) 1에 가까울수록 예측값과 실제값이 가깝다는 의미
+
+# 7분 30초 결림
+
+# LGBMRegressor
+# MAE: 31984.39233477753
+# MSE: 8421091667.1321
+# RMSE: 91766.50623801748
+# R2: 0.0776957978936097
+
+# 예측값과 실제값 비교 csv 파일로 저장
+df2 = pd.DataFrame({'Actual': y_test, 'Predicted': lgbm_t_pred})
+df2.to_csv(os.path.join(path, 'result_lgb.csv'), index=True)
+
+# lightgbm 최적의 parameter 찾기
+from sklearn.model_selection import GridSearchCV
+
+lgbm = LGBMRegressor(random_state=1)
+
+params = {
+    'n_estimators': [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+    'learning_rate': [0.01, 0.05, 0.1, 0.15, 0.2],
+    'max_depth': [3, 5, 7, 9, 11, 13, 15],
+    'colsample_bytree': [0.5, 0.7, 0.9, 1],
+    'subsample': [0.5, 0.7, 0.9, 1]
+}
+
+grid_cv = GridSearchCV(lgbm, param_grid=params, cv=5, n_jobs=-1)
+grid_cv.fit(x_train, y_train, verbose=1, eval_metric=['rmse', 'mae'], eval_set=[(x_train, y_train), (x_test, y_test)],
+            early_stopping_rounds=100)
+
+print('최적의 파라미터:', grid_cv.best_params_)
+print('최고 예측 정확도: {0:.4f}'.format(grid_cv.best_score_))
+
+# 모델 저장
+import pickle
+
+with open(os.path.join(path, 'lgbm.pkl'), 'wb') as f:
+    pickle.dump(grid_cv.best_estimator_, f)
+
+# # 모델 불러오기
+# with open(os.path.join(path, 'lgbm.pkl'), 'rb') as f:
+#     lgbm = pickle.load(f)
