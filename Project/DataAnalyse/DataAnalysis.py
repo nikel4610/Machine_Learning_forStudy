@@ -129,6 +129,16 @@ print('R2:', r2_score(y_test, lgbm_t_pred))  # (결정 계수) 1에 가까울수
 df2 = pd.DataFrame({'Actual': y_test, 'Predicted': lgbm_t_pred})
 df2.to_csv(os.path.join(path, 'result_lgb.csv'), index=True)
 
+# 모델 저장
+import pickle
+
+with open(os.path.join(path, 'lgbm_t.pkl'), 'wb') as f:
+    pickle.dump(lgbm_t, f)
+
+# 모델 불러오기
+with open(os.path.join(path, 'lgbm_t.pkl'), 'rb') as f:
+    lgbm_t = pickle.load(f)
+
 # lightgbm 최적의 parameter 찾기
 from sklearn.model_selection import GridSearchCV
 
@@ -149,12 +159,23 @@ grid_cv.fit(x_train, y_train, verbose=1, eval_metric=['rmse', 'mae'], eval_set=[
 print('최적의 파라미터:', grid_cv.best_params_)
 print('최고 예측 정확도: {0:.4f}'.format(grid_cv.best_score_))
 
-# 모델 저장
-import pickle
+# random forest 최적의 parameter 찾기
+from sklearn.model_selection import GridSearchCV
 
-with open(os.path.join(path, 'lgbm.pkl'), 'wb') as f:
-    pickle.dump(grid_cv.best_estimator_, f)
+rf = RandomForestRegressor(random_state=1)
 
-# # 모델 불러오기
-# with open(os.path.join(path, 'lgbm.pkl'), 'rb') as f:
-#     lgbm = pickle.load(f)
+params = {
+    'n_estimators': [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+    'max_depth': [3, 5, 7, 9, 11, 13, 15],
+    'min_samples_split': [2, 4, 6, 8, 10],
+    'min_samples_leaf': [1, 3, 5, 7, 9],
+    'max_features': [0.5, 0.7, 0.9, 1]
+}
+
+grid_cv = GridSearchCV(rf, param_grid=params, cv=5, n_jobs=-1)
+grid_cv.fit(x_train, y_train, verbose=1, eval_metric=['rmse', 'mae'], eval_set=[(x_train, y_train), (x_test, y_test)],
+            early_stopping_rounds=100)
+
+print('최적의 파라미터:', grid_cv.best_params_)
+print('최고 예측 정확도: {0:.4f}'.format(grid_cv.best_score_))
+
