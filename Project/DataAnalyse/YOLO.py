@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import pickle
 
+from sklearn.preprocessing import LabelEncoder
 ingre_list = []
 
 def yolo(frame, size, score_threshold, nms_threshold):
@@ -127,7 +128,11 @@ cv2.destroyAllWindows()
 words = {'Soy sauce': '간장', 'Potato': '감자', 'Eggs': '계란', 'sweet potato': '고구마', 'chili': '고추', 'Kimchi': '김치', 'Green Onion': '대파', 'Pork': '돼지고기', 'Garlic': '마늘', 'Radish': '무', 'Soybean paste': '된장', 'Pear': '배', 'Cabbage': '양배추', 'Peach': '복숭아', 'Pimento': '피망', 'apple': '사과', 'Lettuce': '양상추', 'Spam': '스팸', 'Onion': '양파', 'Cucumber': '오이', 'Rice': '햇반'}
 
 path = 'D:/vsc_project/machinelearning_study/Project/searchData'
-df1 = pd.read_csv(os.path.join(path, 'RCP_RE1.csv'), encoding='cp949')
+df1 = pd.read_csv(os.path.join(path, 'rcp.csv'), encoding='cp949')
+
+le = LabelEncoder()
+df1['CKG_NM2'] = le.fit_transform(df1['CKG_NM'])
+df1_le = df1[['CKG_NM2', 'CKG_MTRL_CN']]
 
 # print(df1)
 # CKG_MTRL_CN
@@ -142,10 +147,47 @@ ingre_list = list(set(ingre_list))
 # print(ingre_list)
 
 # ingre_list가 포함된 CKG_MTRL_CN 추출
-# df2 = df1[df1['CKG_MTRL_CN'].str.contains('|'.join(ingre_list))]
-# print(df2)
+df2 = df1_le[df1_le['CKG_MTRL_CN'].str.contains('|'.join(ingre_list))]
+df2.rename(columns={'CKG_NM2': 'CKG_NM'}, inplace=True)
+print(df2)
 
 # lgbm_t.pkl 파일 불러오기
 with open('D:/vsc_project/machinelearning_study/Project/lgbm_t.pkl', 'rb') as f:
     lgbm_t = pickle.load(f)
+
+# print(lgbm_t)
+
+Gender = 1
+Age = 20
+Temperature = 20.0
+Precipitation = 0.0
+Humidity = 0.0
+Cloud = 0.0
+Month = 12
+Season = 4
+Weekday = 5
+
+# print(df2)
+
+model = lgbm_t
+
+df2 = df2['CKG_NM']
+df2 = df2.values.reshape(-1, 1)
+# print(df2)
+
+df3 = pd.DataFrame(columns=['RCP_NM', 'score'])
+
+for i in range(len(df2)):
+    input_data = [df2[i][0], Gender, Age, Temperature, Precipitation, Humidity, Cloud, Month, Season, Weekday]
+    # print(input_data)
+    # print(model.predict([input_data]))
+    # df3에 df2의 CKG_NM과 model.predict([input_data])의 예측값을 전부 저장
+    df3 = df3.append({'RCP_NM': df2[i][0], 'score': model.predict([input_data])}, ignore_index=True)
+
+# df3의 RCP_NM이 df1의 CKG_NM2가 같으면 CKG_NM을 RCP_NM으로 저장
+df3['RCP_NM'] = df3['RCP_NM'].map(df1.set_index('CKG_NM2')['CKG_NM'])
+# df3의 score를 내림차순으로 정렬
+df3 = df3.sort_values(by='score', ascending=False)
+print(df3.head())
+
 
