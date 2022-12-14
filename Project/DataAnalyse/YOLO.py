@@ -1,8 +1,13 @@
 import cv2
 import numpy as np
+import pandas as pd
+import os
+import pickle
 
+ingre_list = []
 
 def yolo(frame, size, score_threshold, nms_threshold):
+    """YOLO 시작"""
     # YOLO 네트워크 불러오기
     net = cv2.dnn.readNet("D:/vsc_project/machinelearning_study/yolofiles/yolov4-obj_final.weights",
                           "D:/vsc_project/machinelearning_study/yolofiles/yolov4-obj.cfg")
@@ -77,6 +82,7 @@ def yolo(frame, size, score_threshold, nms_threshold):
 
             # 탐지된 객체의 정보 출력
             print(f"[{class_name}({i})] conf: {confidences[i]} / x: {x} / y: {y} / width: {w} / height: {h}")
+            globals()['ingre_list'].append(class_name)
 
     return frame
 
@@ -117,3 +123,29 @@ frame = yolo(frame=frame, size=size_list[2], score_threshold=0.4, nms_threshold=
 cv2.imshow("Output_Yolo", frame)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+words = {'Soy sauce': '간장', 'Potato': '감자', 'Eggs': '계란', 'sweet potato': '고구마', 'chili': '고추', 'Kimchi': '김치', 'Green Onion': '대파', 'Pork': '돼지고기', 'Garlic': '마늘', 'Radish': '무', 'Soybean paste': '된장', 'Pear': '배', 'Cabbage': '양배추', 'Peach': '복숭아', 'Pimento': '피망', 'apple': '사과', 'Lettuce': '양상추', 'Spam': '스팸', 'Onion': '양파', 'Cucumber': '오이', 'Rice': '햇반'}
+
+path = 'D:/vsc_project/machinelearning_study/Project/searchData'
+df1 = pd.read_csv(os.path.join(path, 'RCP_RE1.csv'), encoding='cp949')
+
+# print(df1)
+# CKG_MTRL_CN
+
+for i in range(len(ingre_list)):
+    for key, value in words.items():
+        if ingre_list[i] == key:
+            ingre_list[i] = value
+
+# ingre_list 중복 제거
+ingre_list = list(set(ingre_list))
+# print(ingre_list)
+
+# ingre_list가 포함된 CKG_MTRL_CN 추출
+# df2 = df1[df1['CKG_MTRL_CN'].str.contains('|'.join(ingre_list))]
+# print(df2)
+
+# lgbm_t.pkl 파일 불러오기
+with open('D:/vsc_project/machinelearning_study/Project/lgbm_t.pkl', 'rb') as f:
+    lgbm_t = pickle.load(f)
+

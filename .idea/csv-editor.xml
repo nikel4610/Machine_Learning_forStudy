@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\adult.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data-master\house_test.csv">
           <value>
             <Attribute>
@@ -60,6 +67,13 @@
           </value>
         </entry>
         <entry key="\home-credit-default-risk\HomeCredit_columns_description.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\titanic_train.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
