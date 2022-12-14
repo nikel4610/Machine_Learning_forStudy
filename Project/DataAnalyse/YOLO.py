@@ -5,7 +5,9 @@ import os
 import pickle
 
 from sklearn.preprocessing import LabelEncoder
+
 ingre_list = []
+
 
 def yolo(frame, size, score_threshold, nms_threshold):
     """YOLO 시작"""
@@ -125,7 +127,10 @@ cv2.imshow("Output_Yolo", frame)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-words = {'Soy sauce': '간장', 'Potato': '감자', 'Eggs': '계란', 'sweet potato': '고구마', 'chili': '고추', 'Kimchi': '김치', 'Green Onion': '대파', 'Pork': '돼지고기', 'Garlic': '마늘', 'Radish': '무', 'Soybean paste': '된장', 'Pear': '배', 'Cabbage': '양배추', 'Peach': '복숭아', 'Pimento': '피망', 'apple': '사과', 'Lettuce': '양상추', 'Spam': '스팸', 'Onion': '양파', 'Cucumber': '오이', 'Rice': '햇반'}
+words = {'Soy sauce': '간장', 'Potato': '감자', 'Eggs': '계란', 'sweet potato': '고구마', 'chili': '고추', 'Kimchi': '김치',
+         'Green Onion': '대파', 'Pork': '돼지고기', 'Garlic': '마늘', 'Radish': '무', 'Soybean paste': '된장', 'Pear': '배',
+         'Cabbage': '양배추', 'Peach': '복숭아', 'Pimento': '피망', 'apple': '사과', 'Lettuce': '양상추', 'Spam': '스팸',
+         'Onion': '양파', 'Cucumber': '오이', 'Rice': '햇반'}
 
 path = 'D:/vsc_project/machinelearning_study/Project/searchData'
 df1 = pd.read_csv(os.path.join(path, 'rcp.csv'), encoding='cp949')
@@ -189,5 +194,3 @@ df3['RCP_NM'] = df3['RCP_NM'].map(df1.set_index('CKG_NM2')['CKG_NM'])
 # df3의 score를 내림차순으로 정렬
 df3 = df3.sort_values(by='score', ascending=False)
 print(df3.head())
-
-
